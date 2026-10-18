@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Técnico - Movi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="container">
+            <h1>Movi — Manual Técnico e de Manutenção</h1>
+            <p>Documentação para desenvolvedores e manutenção da aplicação de gestão de eventos em Flutter</p>
+        </div>
+    </header>
+
+    <div class="main-layout container">
+        <!-- Menu Lateral / Navegação Interna -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="#apresentacao">1. Apresentação</a></li>
+                <li><a href="#objetivo">2. Objetivo e Público-Alvo</a></li>
+                <li><a href="#tecnologias">3. Tecnologias Utilizadas</a></li>
+                <li><a href="#requisitos">4. Requisitos de Execução</a></li>
+                <li><a href="#instalacao">5. Passo a Passo de Instalação</a></li>
+                <li><a href="#estrutura-pastas">6. Estrutura de Pastas</a></li>
+                <li><a href="#telas">7. Principais Telas</a></li>
+                <li><a href="#auth">8. Login e Cadastro</a></li>
+                <li><a href="#banco-dados">9. Estrutura do Banco de Dados</a></li>
+                <li><a href="#crud">10. Cadastrar, Editar e Excluir</a></li>
+                <li><a href="#customizacao">11. Customização (Cores, Logo, Nome)</a></li>
+                <li><a href="#manutencao-telas">12. Adicionar / Alterar Telas</a></li>
+                <li><a href="#manutencao-bd">13. Alterar Banco de Dados</a></li>
+                <li><a href="#build">14. Gerar Nova Versão (APK/Build)</a></li>
+                <li><a href="#troubleshooting">15. Solução de Problemas</a></li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main class="content">
+
+            <!-- 1. Apresentação -->
+            <section id="apresentacao">
+                <h2>1. Apresentação do Aplicativo</h2>
+                <p>O <strong>Movi</strong> é uma aplicação mobile desenvolvida em Flutter focada no planejamento, criação e organização de eventos. O sistema permite cadastrar detalhes como data, horário, local, descrição e lista de participantes, além de permitir a consulta organizada de eventos agendados e confirmações de presença.</p>
+                
+                <figure class="img-container">
+                    <img src="tela_login.png" alt="Apresentação da Tela Principal do Movi">
+                    <figcaption>Figura 1: Visão geral da plataforma Movi e listagem de eventos</figcaption>
+                </figure>
+            </section>
+
+            <!-- 2. Objetivo e Público-Alvo -->
+            <section id="objetivo">
+                <h2>2. Objetivo e Público-Alvo</h2>
+                <ul>
+                    <li><strong>Objetivo:</strong> Centralizar o gerenciamento de eventos, fornecendo uma interface intuitiva para criar, consultar e acompanhar compromissos e presenças.</li>
+                    <li><strong>Público-Alvo:</strong> Organizadores de eventos, empresas, grupos acadêmicos, estudantes e qualquer pessoa que necessite agendar e gerenciar encontros de forma estruturada.</li>
+                </ul>
+            </section>
+
+            <!-- 3. Tecnologias -->
+            <section id="tecnologias">
+                <h2>3. Tecnologias Utilizadas</h2>
+                <ul>
+                    <li><strong>Linguagem:</strong> Dart (>= 3.0.0)</li>
+                    <li><strong>Framework:</strong> Flutter (>= 3.x)</li>
+                    <li><strong>Backend / Banco de Dados:</strong> Firebase (Firestore / Authentication) ou SQLite para armazenar eventos e participantes.</li>
+                    <li><strong>Serviços de Terceiros:</strong> Formspree (para envio de e-mails de contato e feedback).</li>
+                    <li><strong>Gerenciamento de Estado:</strong> Provider / Bloc / setState</li>
+                    <li><strong>Dependências Adicionais:</strong> <code>intl</code> (para formatação de data e hora) e seletores de data/hora.</li>
+                </ul>
+            </section>
+
+            <!-- 4. Requisitos -->
+            <section id="requisitos">
+                <h2>4. Requisitos para Executar o Projeto</h2>
+                <ul>
+                    <li>Flutter SDK instalado e configurado nas variáveis de ambiente.</li>
+                    <li>Dart SDK em versão compatível.</li>
+                    <li>Android Studio ou VS Code com extensões Flutter e Dart instaladas.</li>
+                    <li>Emulador Android/iOS ou dispositivo físico conectado via depuração USB.</li>
+                    <li>Git instalado.</li>
+                </ul>
+            </section>
+
+            <!-- 5. Passo a Passo para Instalação -->
+            <section id="instalacao">
+                <h2>5. Passo a Passo para Instalação</h2>
+                <ol>
+                    <li><strong>Clonar o repositório:</strong>
+<pre><code>git clone https://github.com/FGM09/Moviapp.git
+cd Moviapp</code></pre>
+                    </li>
+                    <li><strong>Instalar as dependências do Flutter:</strong>
+<pre><code>flutter pub get</code></pre>
+                    </li>
+                    <li><strong>Verificar o ambiente:</strong>
+<pre><code>flutter doctor</code></pre>
+                    </li>
+                    <li><strong>Executar a aplicação:</strong>
+<pre><code>flutter run</code></pre>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- 6. Estrutura de Pastas -->
+            <section id="estrutura-pastas">
+                <h2>6. Estrutura de Pastas</h2>
+                <p>A arquitetura dentro da pasta <code>lib/</code> segue a divisão por responsabilidades:</p>
+<pre><code>lib/
+├── main.dart             # Inicialização da aplicação e rotas globais
+├── config/               # Configuração de temas, cores e rotas
+├── controllers/          # Controladores e lógica de negócios do Movi
+├── models/               # Modelos de dados (Event, Participant, User)
+├── services/             # Comunicação com Firebase/SQLite e Formspree
+├── views/                # Interface do Usuário (Screens)
+│   ├── auth/             # Telas de Login e Criar Conta
+│   ├── events/           # Cadastro, Listagem e Detalhes de Eventos
+│   ├── feedback/         # Tela de Contato & Feedback (Formspree)
+│   └── profile/          # Perfil do usuário
+└── widgets/              # Componentes reutilizáveis (Cards, Inputs, etc.)</code></pre>
+            </section>
+
+            <!-- 7. Principais Telas -->
+            <section id="telas">
+                <h2>7. Explicação das Principais Telas</h2>
+                <ul>
+                    <li><strong>Lista de Eventos (Home):</strong> Exibe os eventos com busca por título/local, filtros por status (Todos, Confirmados, Pendentes) e categorias (Trabalho, Social, Esporte, Estudos, Outros).</li>
+                    <li><strong>Detalhes do Evento:</strong> Exibe data/horário, local, descrição, status de confirmação e a lista de participantes com opção de adição/remoção rápida.</li>
+                    <li><strong>Novo Evento:</strong> Formulário com título, categoria, data, horário, local, descrição, inserção de participantes e chave de status do evento.</li>
+                    <li><strong>Contato & Feedback:</strong> Módulo para envio direto de mensagens via integração com o Formspree.</li>
+                </ul>
+
+                <div class="grid-imagens">
+                    <figure class="img-container">
+                        <img src="tela_home.png" alt="Tela Principal do Movi">
+                        <figcaption>Figura 2: Tela Principal - Lista de Eventos e Filtros</figcaption>
+                    </figure>
+
+                    <figure class="img-container">
+                        <img src="tela_detalhes.png" alt="Tela de Detalhes do Evento">
+                        <figcaption>Figura 3: Detalhes do Evento e Participantes</figcaption>
+                    </figure>
+
+                    <figure class="img-container">
+                        <img src="tela_cadastro.png" alt="Tela de Criar Novo Evento">
+                        <figcaption>Figura 4: Formulário de Cadastro de Novo Evento</figcaption>
+                    </figure>
+
+                    <figure class="img-container">
+                        <img src="tela_feedback.png" alt="Tela de Contato & Feedback Formspree">
+                        <figcaption>Figura 5: Tela de Contato & Feedback (Integração Formspree)</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- 8. Login e Cadastro -->
+            <section id="auth">
+                <h2>8. Explicação do Login e Cadastro</h2>
+                <p>Módulo localizado em <code>lib/views/auth/</code>:</p>
+                <ul>
+                    <li><strong>Login:</strong> Autentica o usuário por e-mail e senha, com suporte a login social via Google e atalhos rápidos para contas de demonstração (Carlos e Ana).</li>
+                    <li><strong>Criar Conta:</strong> Permite o cadastro com Nome Completo, E-mail, Senha e Confirmação de Senha.</li>
+                    <li><strong>Controle de Sessão:</strong> Validação de autenticação ao iniciar a aplicação.</li>
+                </ul>
+
+                <div class="grid-imagens">
+                    <figure class="img-container">
+                        <img src="tela_login.png" alt="Tela de Login do Movi">
+                        <figcaption>Figura 6: Tela de Login e Contas de Demonstração</figcaption>
+                    </figure>
+
+                    <figure class="img-container">
+                        <img src="v" alt="Tela de Criar Conta no Movi">
+                        <figcaption>Figura 7: Tela de Criar Conta / Registro</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- 9. Banco de Dados -->
+            <section id="banco-dados">
+                <h2>9. Estrutura do Banco de Dados</h2>
+                <p>Estrutura dos documentos da coleção/tabela de eventos (<code>events</code>):</p>
+<pre><code>// Coleção / Tabela: events
+{
+  "id": "string",
+  "title": "string",
+  "category": "string", // Social, Trabalho, Esporte, Estudos, Outros
+  "description": "string",
+  "location": "string",
+  "date": "string", // Ex: "19/10/2026"
+  "time": "string", // Ex: "14:59"
+  "status": "string", // Confirmado, Pendente
+  "participants": ["Carlos Silva", "Ana Oliveira", "Mariana Santos"],
+  "createdAt": "timestamp"
+}</code></pre>
+            </section>
+
+            <!-- 10. CRUD -->
+            <section id="crud">
+                <h2>10. Como Cadastrar, Editar e Excluir Informações</h2>
+                <ul>
+                    <li><strong>Cadastrar Evento:</strong> Acesse a tela "Novo Evento", preencha o formulário e clique em <code>CRIAR EVENTO</code>.</li>
+                    <li><strong>Editar Evento:</strong> Na tela "Detalhes do Evento", utilize o ícone de lápis (cabeçalho) para alterar as informações.</li>
+                    <li><strong>Excluir Evento:</strong> Clique no ícone da lixeira no cabeçalho da tela de detalhes para excluir o evento.</li>
+                    <li><strong>Adicionar/Remover Participante:</strong> Na tela de detalhes, insira o nome no campo "Participantes" ou clique no "X" junto ao nome para remover.</li>
+                </ul>
+            </section>
+
+            <!-- 11. Customização -->
+            <section id="customizacao">
+                <h2>11. Como Alterar Cores, Logo e Nome do Aplicativo</h2>
+                
+                <h3>A. Alterar Cores</h3>
+                <p>O aplicativo utiliza como tom principal a cor roxa (<code>#6B5B95</code> ou <code>#5E5083</code>). Edite no arquivo <code>lib/config/theme.dart</code>:</p>
+<pre><code>ThemeData appTheme = ThemeData(
+  primaryColor: Color(0xFF5E5083), // Cor roxa padrão do Movi
+  colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF5E5083)),
+  scaffoldBackgroundColor: Color(0xFFF9F6FC),
+);</code></pre>
+
+                <h3>B. Trocar o Logo</h3>
+                <p>Substitua o ícone de calendário/logo na pasta <code>assets/images/logo.png</code> mantendo a declaração no <code>pubspec.yaml</code>.</p>
+
+                <h3>C. Alterar o Nome do Aplicativo</h3>
+                <ul>
+                    <li><strong>Android:</strong> Altere o atributo <code>android:label="Movi"</code> no arquivo <code>android/app/src/main/AndroidManifest.xml</code>.</li>
+                    <li><strong>iOS:</strong> Modifique a chave <code>CFBundleDisplayName</code> para <code>Movi</code> no arquivo <code>ios/Runner/Info.plist</code>.</li>
+                </ul>
+            </section>
+
+            <!-- 12. Adicionar / Alterar Tela -->
+            <section id="manutencao-telas">
+                <h2>12. Como Adicionar ou Alterar uma Tela</h2>
+                <ol>
+                    <li>Crie um novo arquivo em <code>lib/views/events/nova_tela.dart</code>.</li>
+                    <li>Defina a estrutura do Widget (ex: <code>class NovaTela extends StatelessWidget</code>).</li>
+                    <li>Mapeie a nova rota dentro de <code>lib/config/routes.dart</code>:
+<pre><code>'/nova-tela': (context) => NovaTela(),</code></pre>
+                    </li>
+                    <li>Chame a navegação na tela desejada:
+<pre><code>Navigator.pushNamed(context, '/nova-tela');</code></pre>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- 13. Alterar Campo do BD -->
+            <section id="manutencao-bd">
+                <h2>13. Como Adicionar ou Alterar um Campo no Banco de Dados</h2>
+                <ol>
+                    <li>Abra o modelo de dados em <code>lib/models/event.dart</code>.</li>
+                    <li>Adicione a nova propriedade desejada (ex: <code>final String category;</code>).</li>
+                    <li>Atualize o construtor e os métodos <code>toMap()</code> / <code>fromMap()</code> (ou <code>toJson</code> / <code>fromJson</code>).</li>
+                    <li>Ajuste a interface do formulário para permitir a inserção e leitura desse novo campo.</li>
+                </ol>
+            </section>
+
+            <!-- 14. Gerar Nova Versão -->
+            <section id="build">
+                <h2>14. Como Gerar uma Nova Versão do Projeto</h2>
+                <p>1. Atualize a versão no arquivo <code>pubspec.yaml</code>:</p>
+<pre><code>version: 1.0.1+2 # 1.0.1 (nome da versão), +2 (código do build)</code></pre>
+                <p>2. Execute o comando de geração do executável:</p>
+<pre><code># Para gerar o arquivo APK de instalação
+flutter build apk --release
+
+# Para gerar o App Bundle para a Play Store
+flutter build appbundle --release</code></pre>
+            </section>
+
+            <!-- 15. Troubleshooting -->
+            <section id="troubleshooting">
+                <h2>15. Solução de Problemas Comuns</h2>
+                <ul>
+                    <li><strong>Erro de Build/Cache:</strong> Execute <code>flutter clean</code> e em seguida <code>flutter pub get</code>.</li>
+                    <li><strong>Formatação de Data/Hora:</strong> Verifique se a biblioteca <code>intl</code> está configurada corretamente para o idioma padrão (<code>pt_BR</code>).</li>
+                    <li><strong>Erro de envio no Formspree:</strong> Verifique se o ID do formulário está configurado corretamente na tela de Feedback.</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; Documentação Técnica do Projeto Movi - AV1 Flutter</p>
+        </div>
+    </footer>
+
+</body>
+</html>
